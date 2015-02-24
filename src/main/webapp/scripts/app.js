@@ -86,7 +86,7 @@ app.controller('INTEGRATIONCtrl', function ($scope, $http) {
 });
 
 app.controller('FUSECtrl', function ($scope, $http) {
-	$scope.pageHeading='JBoss Fuse ESB Demo'
+	$scope.pageHeading='JBoss Fuse &amp; JBoss Fuse Service Works Demos'
 		$scope.demos = new Array();
 	$http.get('rest/demos/fuse').success(function (demos) {
     	demos.forEach(function(demo) { $scope.demos.push(demo)});
