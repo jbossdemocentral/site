@@ -48,14 +48,22 @@ public class DemoRestService {
 	@GET
     @Path("demos/{category}")
     @Produces({ "application/json" })
-    public List<Demo> getDemosByCategory(@PathParam("category") String category) {
-		if(category==null) {
+    public List<Demo> getDemosByCategory(@PathParam("category") String requestCategory) {
+		if(requestCategory==null) {
 			return null;
 		}
 		List<Demo> allDemos = cache.get(DEMO_LIST_CACHE_ENTRY_KEY);
 		List<Demo> demos = new ArrayList<Demo>();
 		for (Demo demo : allDemos) {
-			if(category.equals(demo.getCategory())) {
+			//Check if config has categories
+			List<String> categories = demo.getCategories();
+			if(categories!=null && categories.size()>0) {
+				for (String category : categories) {
+					if(requestCategory.equals(category)) {
+						demos.add(demo);
+					}
+				}
+			} else if(requestCategory.equals(demo.getCategory())) {
 				demos.add(demo);
 			}
 		}

@@ -12,6 +12,7 @@ public class Demo {
 	String summary;
 	String author;
 	String category;
+	List<String> categories;
 	String level;
 	boolean published;
 	String prerequisites;
@@ -43,6 +44,13 @@ public class Demo {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	public List<String> getCategories() {
+		return categories;
+	}
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
 	}
 	public String getLevel() {
 		return level;
