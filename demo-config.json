@@ -1,0 +1,19 @@
+{
+  "name":"Modern web applications, implementing JBoss Demo Central",
+  "summary":"The JBoss Demo Central Site in it self is implemented using AngularJS and REST services hosted on JBoss EAP. It also uses JBoss Data Grid for caching. The code for this site is opensource.",
+  "author":"Thomas Qvarnstrom",
+  "categories":["jdg","eap"],
+  "level":"Intermediate",
+  "published":true,
+  "prerequisites":"Java VM 1.6 or 1.7, Maven",
+  "targetProduct":"JBoss Data Grid and JBoss Fuse",
+  "productVersion":"JBoss Data Grid 6.4 and JBoss Fuse 6.1",
+  "technologies": ["AngualJS","RESTful","RestEasy", "JBoss EAP", "JBoss Data Grid", "Git Hub API"],
+  "links": [ 
+    { 
+      "name":"Code",
+      "url":"https://github.com/jbossdemocentral/site"
+    }
+  ]
+  
+}
