@@ -5,3 +5,4 @@ target
 .project
 .classpath
 .tern-project
+src/main/scripts/setgithuboauthenv.sh

@@ -1,22 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jbossdemocentral</groupId>
 	<artifactId>jbossdemocentral</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>public</name>
 	<repositories>
 		<repository>
-          <id>jboss</id>
-          <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-        </repository>
+			<id>jboss</id>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 		<repository>
 			<id>eap</id>
 			<url>http://maven.repository.redhat.com/techpreview/all</url>
@@ -44,33 +44,52 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
+		<nexus.address>${env.NEXUS_PORT_8081_TCP_ADDR}</nexus.address>
 	</properties>
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://nexus:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://nexus:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<scm>
+		<connection>scm:git:git@github.com:jbossdemocentral/site.git</connection>
+		<developerConnection>scm:git:git@github.com:jbossdemocentral/site.git</developerConnection>
+		<url>http://github.com/jbossdemocentral/site</url>
+		<tag>HEAD</tag>
+	</scm>
 	<dependencyManagement>
-        <dependencies>
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
+		<dependencies>
+			<!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
                 of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
                 of artifacts. We use this here so that we always get the correct versions
                 of artifacts. Here we use the jboss-javaee-6.0-with tools stack (you can read this as
                 the JBoss stack of the Java EE 6 APIs, with some extras tools for your project, such
                 as Arquillian for testing) -->
-            <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-6.0-with-resteasy</artifactId>
-                <version>1.0.4.Final-redhat-1</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
+			<dependency>
+				<groupId>org.jboss.bom</groupId>
+				<artifactId>jboss-javaee-6.0-with-resteasy</artifactId>
+				<version>1.0.4.Final-redhat-1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
 				<groupId>org.infinispan</groupId>
 				<artifactId>infinispan-bom</artifactId>
 				<version>6.1.0.Final-redhat-4</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-        </dependencies>
-    </dependencyManagement>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
-<!--
+		<!--
 As updates are released for EAP the version of the provided jboss-javaee-6.0
 jar can change.  To ensure your application is compiling against the same jars
 that the runtime provides the <version> element below should match the
@@ -94,54 +113,46 @@ jboss-eap-*-maven-repository/org/jboss/spec/jboss-javaee-6.0
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss AS 7 -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- JSON: uncomment to include json support (note json is not part of the JAX-RS standard) -->
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson-provider</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- JSON: uncomment to include json support (note json is not part of the JAX-RS standard) -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-        <!-- Import the EJB API, we use provided scope as the API is included in JBoss AS 7 -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.2</version>
-            <scope>compile</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        
-        <dependency>
+		<!-- Import the EJB API, we use provided scope as the API is included in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-core</artifactId>
 			<scope>compile</scope>
@@ -151,31 +162,19 @@ jboss-eap-*-maven-repository/org/jboss/spec/jboss-javaee-6.0
 			<artifactId>infinispan-cdi</artifactId>
 			<scope>compile</scope>
 		</dependency>
-
 	</dependencies>
 	<profiles>
 		<profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when 
-				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app 
-				will need. -->
-			<!-- By default that is to put the resulting archive into the 'deployments' 
-				folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-			<id>openshift</id>
-			<build>
-				<finalName>public</finalName>
-				<plugins>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
-						<configuration>
-							<outputDirectory>deployments</outputDirectory>
-							<warName>ROOT</warName>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
+			<id>nexus_address</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>!${env.NEXUS_PORT_8081_TCP_ADDR}</name>
+				</property>
+			</activation>
+			<properties>
+				<nexus.address>docker-vm</nexus.address>
+			</properties>
 		</profile>
 	</profiles>
 </project>
