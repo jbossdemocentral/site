@@ -44,7 +44,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<nexus.address>${env.NEXUS_PORT_8081_TCP_ADDR}</nexus.address>
 	</properties>
 	<distributionManagement>
 		<repository>
@@ -163,18 +162,4 @@ jboss-eap-*-maven-repository/org/jboss/spec/jboss-javaee-6.0
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-	<profiles>
-		<profile>
-			<id>nexus_address</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-					<name>!${env.NEXUS_PORT_8081_TCP_ADDR}</name>
-				</property>
-			</activation>
-			<properties>
-				<nexus.address>docker-vm</nexus.address>
-			</properties>
-		</profile>
-	</profiles>
 </project>
