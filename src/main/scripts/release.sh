@@ -51,7 +51,7 @@ function deploy_openshift_app() {
 	if [ $? -eq 0 ]; then
 		# App exists 
 	    echo " - app $app exists, deleting it"
-		rhc app-delete $APP -n $OPENSHIFT_DOMAIN --confirm
+		delete_openshift_app $APP
 	fi
 	# App does not exist
 	echo " - creating app $APP in domain $OPENSHIFT_DOMAIN"
@@ -62,6 +62,11 @@ function deploy_openshift_app() {
 		--gear-size ${SIZE} \
 		--no-git
 	echo " - succesfully created app. You can access it here: http://$APP-$OPENSHIFT_DOMAIN.rhcloud.com"	
+}
+
+function delete_openshift_app() {
+	APP=$1
+	rhc app-delete $APP -n $OPENSHIFT_DOMAIN --confirm
 }
 
 function get_github_oauth_env() {
@@ -108,6 +113,15 @@ deploy)
 	;;
 list)
 	list_gears
+	;;
+delete)
+	APP=$2
+	if [ -z "${APP}" ]; then
+    	echo "ERROR: You must specify app-name"
+		print_usage
+    	exit 3
+	fi
+	delete_openshift_app ${APP}
 	;;
 *)
 	print_usage
