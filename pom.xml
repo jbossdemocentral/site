@@ -4,7 +4,7 @@
 	<groupId>org.jbossdemocentral</groupId>
 	<artifactId>jbossdemocentral</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.5</version>
+	<version>1.0.5-SNAPSHOT</version>
 	<name>jbossdemocentral</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
