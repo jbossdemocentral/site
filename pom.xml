@@ -4,7 +4,7 @@
 	<groupId>org.jbossdemocentral</groupId>
 	<artifactId>jbossdemocentral</artifactId>
 	<packaging>war</packaging>
-	<version>1.2.3-SNAPSHOT</version>
+	<version>1.2.3</version>
 	<name>jbossdemocentral</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,7 +27,7 @@
 		<connection>scm:git:git@github.com:jbossdemocentral/site.git</connection>
 		<developerConnection>scm:git:git@github.com:jbossdemocentral/site.git</developerConnection>
 		<url>http://github.com/jbossdemocentral/site</url>
-		<tag>HEAD</tag>
+		<tag>v1.2.3</tag>
 	</scm>
 	<dependencyManagement>
 		<dependencies>
