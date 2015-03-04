@@ -15,9 +15,11 @@ app.config(function ($routeProvider) {
     	templateUrl: 'views/demolist.html',
     	controller: 'EAPCtrl'
     }).when('/bpms',{
-    	templateUrl: 'views/bpms.html'
+    	templateUrl: 'views/bpms.html',
+    	controller: 'BPMSCtrl'
     }).when('/brms',{
-    	templateUrl: 'views/brms.html'
+    	templateUrl: 'views/brms.html',
+    	controller: 'BRMSCtrl'
     }).when('/fuse',{
     	templateUrl: 'views/demolist.html',
     	controller: 'FUSECtrl'
@@ -86,7 +88,7 @@ app.controller('INTEGRATIONCtrl', function ($scope, $http) {
 });
 
 app.controller('FUSECtrl', function ($scope, $http) {
-	$scope.pageHeading='JBoss Fuse &amp; JBoss Fuse Service Works Demos'
+	$scope.pageHeading='JBoss Fuse & JBoss Fuse Service Works Demos'
 		$scope.demos = new Array();
 	$http.get('rest/demos/fuse').success(function (demos) {
     	demos.forEach(function(demo) { $scope.demos.push(demo)});
@@ -103,6 +105,46 @@ app.controller('FUSECtrl', function ($scope, $http) {
 		console.log('Error status ' + status);
     });  
 });
+
+
+app.controller('BRMSCtrl', function ($scope, $http) {
+	$scope.pageHeading='JBoss Business Rules Management System Demos'
+		$scope.demos = new Array();
+	$http.get('rest/demos/brms').success(function (demos) {
+    	demos.forEach(function(demo) { $scope.demos.push(demo)});
+  }).error(function (data, status,headers) {
+		if(status=403 && data.message.match("API rate limit exceeded")) {		
+			$scope.alerts=[{type: 'danger', message: '<strong>API rate limit of GitHub exceeded.</strong> Try again at ' + new Date(headers('X-RateLimit-Reset') * 1000) + '.'}]
+		} else if(status=503) {
+			$scope.alerts=[{type: 'danger', message: '<strong>Back-end service in unavailable</strong>'}]
+		} else {
+			$scope.alerts=[{type: 'warning', message: '<strong>Server responsed with an error</strong>, status=' + status + ', message=' + data}]
+		}
+        console.log('Error data ' + data);
+		console.log('Error data.message ' + data.message);
+		console.log('Error status ' + status);
+    });  
+});
+
+app.controller('BPMSCtrl', function ($scope, $http) {
+	$scope.pageHeading='JBoss BPM Suite Demos'
+		$scope.demos = new Array();
+	$http.get('rest/demos/bpms').success(function (demos) {
+    	demos.forEach(function(demo) { $scope.demos.push(demo)});
+  }).error(function (data, status,headers) {
+		if(status=403 && data.message.match("API rate limit exceeded")) {		
+			$scope.alerts=[{type: 'danger', message: '<strong>API rate limit of GitHub exceeded.</strong> Try again at ' + new Date(headers('X-RateLimit-Reset') * 1000) + '.'}]
+		} else if(status=503) {
+			$scope.alerts=[{type: 'danger', message: '<strong>Back-end service in unavailable</strong>'}]
+		} else {
+			$scope.alerts=[{type: 'warning', message: '<strong>Server responsed with an error</strong>, status=' + status + ', message=' + data}]
+		}
+        console.log('Error data ' + data);
+		console.log('Error data.message ' + data.message);
+		console.log('Error status ' + status);
+    });  
+});
+
 
 app.controller('EAPCtrl', function ($scope, $http) {
 	$scope.pageHeading='JBoss Enterprise Application Platform Demos'
