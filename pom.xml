@@ -4,7 +4,7 @@
 	<groupId>org.jbossdemocentral</groupId>
 	<artifactId>jbossdemocentral</artifactId>
 	<packaging>war</packaging>
-	<version>1.2.0-SNAPSHOT</version>
+	<version>1.2.1-SNAPSHOT</version>
 	<name>jbossdemocentral</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -118,4 +118,36 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+	        <!-- The default profile skips all tests, though you can tune 
+	            it to run just unit tests based on a custom pattern -->
+	        <!-- Seperate profiles are provided for running all tests, including 
+	            Arquillian tests that execute in the specified container -->
+	        <id>default</id>
+	        <activation>
+	            <activeByDefault>true</activeByDefault>
+	        </activation>
+	        <build>
+	            <plugins>
+	                <plugin>
+	                    <artifactId>maven-surefire-plugin</artifactId>
+	                    <version>2.4.3</version>
+	                    <configuration>
+	                        <skip>true</skip>
+	                    </configuration>
+	                </plugin>
+	                <plugin>
+	                   <groupId>org.apache.maven.plugins</groupId>
+	                   <artifactId>maven-release-plugin</artifactId>
+	                   <version>2.5</version>
+	                   <configuration>
+	                      <tagNameFormat>v@{project.version}</tagNameFormat>
+	                   </configuration>
+	                </plugin>
+	            </plugins>
+	        </build>
+	    </profile>
+		
+	</profiles>
 </project>
