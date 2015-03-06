@@ -69,13 +69,27 @@ public class DemoDaoImpl implements DemoDao {
 			List<Repository> repos = repolist.getEntity();
 			for (Repository repo : repos) {
 				log.info("Found repository with name " + repo.getName());
-				Demo demo = readRepoConfig(repo.getUrl()
-						+ "/contents/.demo-config.json");
+				
+				Demo demo = null;
+				try {
+					demo = readRepoConfig(repo.getUrl()
+							+ "/contents/.demo-config.json");
+				} catch (Exception e) {
+					log.log(Level.WARNING,
+							"Failed to parse response from the GitHub API for repo " + repo.getName());
+					e.printStackTrace();
+				}
 
 				// For backward compatibility
 				if (demo == null) {
-					demo = readRepoConfig(repo.getUrl()
+					try {
+						demo = readRepoConfig(repo.getUrl()
 							+ "/contents/demo-config.json");
+					} catch (Exception e) {
+						log.log(Level.WARNING,
+								"Failed to parse response from the GitHub API for repo " + repo.getName());
+						e.printStackTrace();
+					}
 				}
 
 				if (demo != null && demo.isPublished()) {
