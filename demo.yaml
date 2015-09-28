@@ -1,0 +1,13 @@
+title: Modern web applications, implementing JBoss Demo Central
+github_repo_url: https://github.com/jbossdemocentral/site
+technologies:
+  - AngularJS
+  - RESTful
+  - RestEasy
+  - JBoss EAP
+  - JBoss Data Grid
+  - Github API
+summary: The JBoss Demo Central Site in it self is implemented using AngularJS and REST services hosted on JBoss EAP. It also uses JBoss Data Grid for caching. The code for this site is opensource.
+level: Intermediate
+product: eap
+author: Thomas Qvarnstrom
